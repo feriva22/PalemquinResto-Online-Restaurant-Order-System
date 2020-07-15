@@ -1,0 +1,48 @@
+version: '3.4'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: codeigniter-docker
+    ports:
+      - '8080:80'
+    volumes:
+      - '.:/srv/app'
+    links:
+      - mysql_db
+      - mailhog
+    environment:
+      DB_HOST: mysql_db
+      DB_DATABASE: resto_db
+      DB_USERNAME: app
+      DB_PASSWORD: password
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: .docker/Dockerfile
+    environment:
+      - 'DATABASE_URL=mysql://root:password@mysql_db:3306/resto_db'
+    depends_on:
+      - mysql_db
+      - mailhog
+    volumes:
+      - '.:/var/www/backend:rw,cached'
+      - './frontend:/var/www/html:rw,cached'
+    ports:
+      - target: 80
+        published: 8090
+        protocol: tcp
+  mysql_db:
+    image: mariadb
+    ports:
+      - '13306:3306'
+    environment:
+      MYSQL_DATABASE: resto_db
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '8026:8025'

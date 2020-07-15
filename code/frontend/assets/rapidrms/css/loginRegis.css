@@ -1,0 +1,13 @@
+.panel-default-red {
+    border-color : #e00000;
+}
+
+.panel .panel-heading {
+    color : #ffffff;
+    background-color: #e00000 !important;
+    border-color: #e00000 !important;
+}
+
+.panel-title {
+    font-size: 22px !important;
+}
