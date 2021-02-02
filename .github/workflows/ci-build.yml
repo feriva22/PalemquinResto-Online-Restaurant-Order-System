@@ -45,7 +45,7 @@ jobs:
           push: true
           tags: kodinganku/${{ env.APP_NAME }}:${{ env.RELEASE_VERSION }}
           context: ./code/
-          file: ./docker/Dockerfile
+          file: ./.docker/Dockerfile
           builder: ${{ steps.builder1.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
@@ -56,7 +56,7 @@ jobs:
           push: true
           tags: kodinganku/${{ env.APP_NAME }}:latest
           context: ./code/
-          file: ./docker/Dockerfile
+          file: ./.docker/Dockerfile
           builder: ${{ steps.builder2.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
