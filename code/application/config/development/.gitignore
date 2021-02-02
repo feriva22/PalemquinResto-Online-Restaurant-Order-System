@@ -1,0 +1,5 @@
+# Ignore everything in this directory
+# this folder for environtment development, use config.php and database.php for your local development
+*
+# Except this file
+!.gitignore

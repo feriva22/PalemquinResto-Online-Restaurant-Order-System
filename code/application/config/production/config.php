@@ -23,7 +23,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://palemquinresto.com/';
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,6 @@ $config['base_url'] = 'http://palemquinresto.com/';
 | variable so that it is blank.
 |
 */
-//$config['index_page'] = 'index.php';
 $config['index_page'] = '';
 
 /*
@@ -159,7 +160,7 @@ $config['composer_autoload'] = FALSE;
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%\.\:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 
 /*
 |--------------------------------------------------------------------------
@@ -325,7 +326,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'R@hasi4Illahi';
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -379,7 +380,7 @@ $config['encryption_key'] = 'R@hasi4Illahi';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'palemquinresto_frontend';
+$config['sess_cookie_name'] = 'palemquinresto';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = 'resto_sessions';
 $config['sess_match_ip'] = FALSE;
@@ -388,8 +389,6 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['sess_encrypt_cookie']  = TRUE;
 $config['sess_use_database'] = TRUE;
 $config['sess_match_useragent'] = FALSE;
-
-
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
@@ -453,12 +452,13 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'palemquinrestocsrf_frontend';
-$config['csrf_cookie_name'] = 'palemquinrestocsrf_frontend';
+$config['csrf_protection'] = TRUE;
+$config['csrf_token_name'] = 'palemquinrestocsrf';
+$config['csrf_cookie_name'] = 'palemquinrestocsrf';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
+
 
 /*
 |--------------------------------------------------------------------------

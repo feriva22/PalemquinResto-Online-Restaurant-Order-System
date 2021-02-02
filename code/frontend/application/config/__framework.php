@@ -1,43 +1,43 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 $config['site_info'] = 'Sistem Restoran Palemquinresto';
-$config['backend_url'] = 'http://localhost:8080/';
-$config['upload_backend_path'] = '../backend/';
+$config['backend_url'] = 'http://admin.palemquinresto.com/';
+$config['upload_backend_path'] = '../';
 
-define('DELETED',0);
-define('PUBLISH',1);
-define('DRAFT',2);
+define('DELETED', 0);
+define('PUBLISH', 1);
+define('DRAFT', 2);
 
 //account 
-define('ACTIVE',1);
-define('BLOCKED',2);
-define('NO_CREDENTIAL',3);
+define('ACTIVE', 1);
+define('BLOCKED', 2);
+define('NO_CREDENTIAL', 3);
 
 
 //order status
-define('NOT_PAID',0);
-define('HALF_PAID',1);
-define('PAID',2);
-define('CANCELED',3);
-define('REFUND',4);
+define('NOT_PAID', 0);
+define('HALF_PAID', 1);
+define('PAID', 2);
+define('CANCELED', 3);
+define('REFUND', 4);
 
 //transaction status
-define('WAITING',0);
-define('ACCEPTED',1);
-define('REJECTED',2);
+define('WAITING', 0);
+define('ACCEPTED', 1);
+define('REJECTED', 2);
 
 //define delivery
-define('DELIVERY',1);
-define('TAKEAWAY',2);
+define('DELIVERY', 1);
+define('TAKEAWAY', 2);
 
 //for order reservation
-define('PROCESS',1);
-define('COMPLETE',2);
+define('PROCESS', 1);
+define('COMPLETE', 2);
 
-define('GOOGLE_CLIENT_ID','854830601699-j1sg1p3k1tbpt5mn1ur265mtb2mub1ju.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET','YMqsffoziUHpFkk_OuQoNDi6');
+define('GOOGLE_CLIENT_ID', '854830601699-j1sg1p3k1tbpt5mn1ur265mtb2mub1ju.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET', 'YMqsffoziUHpFkk_OuQoNDi6');
 
-define('GOOGLE_API_KEY','AIzaSyDhtaJaMoJ8HY_3XZ8dDWzsC896KIEZjCY');
+define('GOOGLE_API_KEY', 'AIzaSyDhtaJaMoJ8HY_3XZ8dDWzsC896KIEZjCY');
 
 
 $config['invoice_status'] = array(
@@ -69,4 +69,3 @@ $config['trs_status'] = array(
         'label' => '<label class="badge badge-danger">Ditolak</label>'
     )
 );
-?>

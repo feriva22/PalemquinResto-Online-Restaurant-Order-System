@@ -1,0 +1,62 @@
+name: CI Production Environtment
+on:
+  push:
+    branches:
+      - main
+
+env:
+  APP_NAME: resto-web-app
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set env for Release Version
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+      - name: Set Up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set Up Docker BuildX 1
+        id: builder1
+        uses: docker/setup-buildx-action@v1
+      - name: Set Up Docker BuildX 2
+        id: builder2
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Docker hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and Push with tagging version
+        id: docker_build_withtag
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: kodinganku/${{ env.APP_NAME }}:${{ env.RELEASE_VERSION }}
+          context: ./code/
+          file: .docker/Dockerfile
+          builder: ${{ steps.builder1.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Build and Push with latest version
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: kodinganku/${{ env.APP_NAME }}:latest
+          context: ./code/
+          file: .docker/Dockerfile
+          builder: ${{ steps.builder2.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache

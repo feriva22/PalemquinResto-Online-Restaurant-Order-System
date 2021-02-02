@@ -7,6 +7,8 @@ COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /srv/app
 
+EXPOSE 80
+
 RUN a2enmod rewrite && service apache2 restart && \
     docker-php-ext-install mbstring mysqli \
     && chown -R www-data:www-data /srv/app
