@@ -2,7 +2,7 @@ name: CI Production Environtment
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   APP_NAME: resto-web-app
